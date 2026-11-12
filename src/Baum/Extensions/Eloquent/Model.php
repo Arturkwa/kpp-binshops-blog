@@ -113,7 +113,10 @@ abstract class Model extends BaseModel {
    * @return boolean
    */
   public static function softDeletesEnabled() {
-    return with(new static)->areSoftDeletesEnabled();
+    // Laravel 13 zabrania tworzenia instancji modelu w trakcie jego boot()
+    // (Node::boot() wywołuje tę metodę). Soft delete jest włączony dokładnie wtedy,
+    // gdy model używa traitu SoftDeletes (rejestruje on SoftDeletingScope).
+    return in_array(\Illuminate\Database\Eloquent\SoftDeletes::class, class_uses_recursive(static::class));
   }
 
 }
