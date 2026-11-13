@@ -26,7 +26,7 @@ class BinshopsBlogPost extends Model implements SearchResultInterface
      */
     public $casts = [
         'is_published' => 'boolean',
-        'posted_at' => 'date'
+        'posted_at' => 'datetime'
     ];
 
     /**
